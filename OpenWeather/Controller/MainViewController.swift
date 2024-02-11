@@ -25,18 +25,17 @@ final class ViewController: UIViewController {
         
         let group = DispatchGroup()
         
-//        group.enter()
-//        DispatchQueue.global().async(group:group) {
-//            OpenWeatherAPIManager.shared.fetch(api: .current(id: String(self.tempID))) { (item:CurrentModel) in
-//                self.current = item
-//                group.leave()
-//            }
-//        }
+        group.enter()
+        DispatchQueue.global().async(group:group) {
+            OpenWeatherAPIManager.shared.fetch(api: .current(id: String(self.tempID))) { (item:CurrentModel) in
+                self.current = item
+                group.leave()
+            }
+        }
         
         group.enter()
         DispatchQueue.global().async(group:group) {
             OpenWeatherAPIManager.shared.fetch(api: .forecast(id: String(self.tempID))) { (item:ForecastModel) in
-                dump(item)
                 self.forecast = item
                 group.leave()
             }

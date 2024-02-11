@@ -6,7 +6,8 @@
 //  Created by JinwooLee on 2/11/24.
 //
 
-//TODO: - URL Session 사용
+//TODO: - URL Session 사용??? 우선 AF
+//TODO: - Error handling 추가되어야 함
 
 import UIKit
 import Alamofire

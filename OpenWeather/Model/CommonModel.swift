@@ -24,6 +24,23 @@ struct Sys: Decodable {
     let type, id: Int
     let country: String
     let sunrise, sunset: Int
+    
+    enum CodingKeys: CodingKey {
+        case type
+        case id
+        case country
+        case sunrise
+        case sunset
+    }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.type = (try? container.decode(Int.self, forKey: .type)) ?? -999
+        self.id = (try? container.decode(Int.self, forKey: .id)) ?? -999
+        self.country = (try? container.decode(String.self, forKey: .country)) ?? ""
+        self.sunrise = (try? container.decode(Int.self, forKey: .sunrise)) ?? -999
+        self.sunset = (try? container.decode(Int.self, forKey: .sunset)) ?? -999
+    }
 }
 
 // MARK: - Weather
@@ -61,9 +78,9 @@ struct Main: Decodable {
         self.feelsLike = try container.decode(Double.self, forKey: .feelsLike)
         self.tempMin = try container.decode(Double.self, forKey: .tempMin)
         self.tempMax = try container.decode(Double.self, forKey: .tempMax)
-        self.seaLevel = try container.decode(Int.self, forKey: .seaLevel)
-        self.grndLevel = try container.decode(Int.self, forKey: .grndLevel)
-        self.tempKf = try container.decode(Double.self, forKey: .tempKf)
+        self.seaLevel = (try? container.decode(Int.self, forKey: .seaLevel)) ?? -999
+        self.grndLevel = (try? container.decode(Int.self, forKey: .grndLevel)) ?? -999
+        self.tempKf = (try? container.decode(Double.self, forKey: .tempKf)) ?? -999
         self.pressure = try container.decode(Int.self, forKey: .pressure)
         self.humidity = try container.decode(Int.self, forKey: .humidity)
     }

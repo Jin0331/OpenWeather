@@ -24,6 +24,7 @@
 		DBE3CBD72B787EB0005E540B /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE3CBD62B787EB0005E540B /* BaseView.swift */; };
 		DBE3CBD92B787F34005E540B /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE3CBD82B787F34005E540B /* MainView.swift */; };
 		DBE3CBDB2B787F55005E540B /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE3CBDA2B787F55005E540B /* BaseViewController.swift */; };
+		DBE3CBE02B7883A3005E540B /* CommonLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE3CBDF2B7883A3005E540B /* CommonLabel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +44,7 @@
 		DBE3CBD62B787EB0005E540B /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		DBE3CBD82B787F34005E540B /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		DBE3CBDA2B787F55005E540B /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		DBE3CBDF2B7883A3005E540B /* CommonLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonLabel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,9 +123,8 @@
 		DBE3CBBC2B786992005E540B /* Resource */ = {
 			isa = PBXGroup;
 			children = (
-				DBE3CBC32B787197005E540B /* OpenWeatherAPIManager.swift */,
-				DBE3CBC52B7871B1005E540B /* OpenWeatherAPI.swift */,
-				DBE3CBC72B7871B7005E540B /* API.swift */,
+				DBE3CBDE2B788397005E540B /* CustomView */,
+				DBE3CBDC2B788366005E540B /* APIManager */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -135,6 +136,24 @@
 				DBE3CBDA2B787F55005E540B /* BaseViewController.swift */,
 			);
 			path = Base;
+			sourceTree = "<group>";
+		};
+		DBE3CBDC2B788366005E540B /* APIManager */ = {
+			isa = PBXGroup;
+			children = (
+				DBE3CBC32B787197005E540B /* OpenWeatherAPIManager.swift */,
+				DBE3CBC52B7871B1005E540B /* OpenWeatherAPI.swift */,
+				DBE3CBC72B7871B7005E540B /* API.swift */,
+			);
+			path = APIManager;
+			sourceTree = "<group>";
+		};
+		DBE3CBDE2B788397005E540B /* CustomView */ = {
+			isa = PBXGroup;
+			children = (
+				DBE3CBDF2B7883A3005E540B /* CommonLabel.swift */,
+			);
+			path = CustomView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -225,6 +244,7 @@
 				DBE3CBDB2B787F55005E540B /* BaseViewController.swift in Sources */,
 				DBCC22AA2B7862D0007F61B2 /* SceneDelegate.swift in Sources */,
 				DBE3CBC02B786BEA005E540B /* ForecastModel.swift in Sources */,
+				DBE3CBE02B7883A3005E540B /* CommonLabel.swift in Sources */,
 				DBE3CBD92B787F34005E540B /* MainView.swift in Sources */,
 				DBE3CBD72B787EB0005E540B /* BaseView.swift in Sources */,
 				DBE3CBC82B7871B7005E540B /* API.swift in Sources */,

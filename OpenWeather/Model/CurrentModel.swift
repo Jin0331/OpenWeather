@@ -9,7 +9,7 @@
 import Foundation
 
 // MARK: - Weather
-struct Current: Decodable {
+struct CurrentModel: Decodable {
     let coord: Coord
     let weather: [Weather]
     let base: String
@@ -22,4 +22,5 @@ struct Current: Decodable {
     let timezone, id: Int
     let name: String
     let cod: Int
+    
 }

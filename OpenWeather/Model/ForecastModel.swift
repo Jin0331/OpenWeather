@@ -8,7 +8,7 @@
 import Foundation
 
 // MARK: - Welcome
-struct Forecast: Decodable {
+struct ForecastModel: Decodable {
     let cod: String
     let message, cnt: Int
     let list: [List]
@@ -31,7 +31,8 @@ struct List: Decodable {
     let weather: [Weather]
     let clouds: Clouds
     let wind: Wind
-    let visibility, pop: Int
+    let visibility : Int
+    let pop : Double
     let sys: Sys
     let dtTxt: String
 

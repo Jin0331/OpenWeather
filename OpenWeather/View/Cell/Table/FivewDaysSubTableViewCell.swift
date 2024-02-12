@@ -12,12 +12,12 @@ import Then
 class FivewDaysSubTableViewCell: BaseTableViewCell {
 
     let bgView = UIView().then {
-        $0.backgroundColor = .clear
+        $0.backgroundColor = .blue
     }
     
     let dayNameLabel = CommonLabel().then {
         $0.text = "Today"
-        $0.font = .systemFont(ofSize: 20)
+        $0.font = .systemFont(ofSize: 25)
     }
     
     let middleIconImage = UIImageView().then {
@@ -28,14 +28,13 @@ class FivewDaysSubTableViewCell: BaseTableViewCell {
     
     let minTempLabel = CommonLabel().then {
         $0.text = "최저 2도"
-        $0.font = .systemFont(ofSize: 20)
+        $0.font = .systemFont(ofSize: 22)
         $0.textColor = .systemGray
     }
     
     let maxTempLabel = CommonLabel().then {
         $0.text = "최고 9도"
-        $0.font = .systemFont(ofSize: 20)
-        $0.textColor = .systemGray
+        $0.font = .systemFont(ofSize: 22)
     }
     
     override func configureHierarchy() {
@@ -46,28 +45,32 @@ class FivewDaysSubTableViewCell: BaseTableViewCell {
 
     override func configureLayout() {
         bgView.snp.makeConstraints { make in
-            make.height.equalTo(40)
+            make.height.equalTo(50)
             make.top.horizontalEdges.equalTo(contentView.safeAreaLayoutGuide)
         }
         
         dayNameLabel.snp.makeConstraints { make in
-            make.leading.verticalEdges.equalTo(bgView)
+            make.leading.equalTo(bgView).offset(20)
+            make.verticalEdges.equalTo(bgView)
             make.width.equalTo(bgView).multipliedBy(0.25)
         }
         
         middleIconImage.snp.makeConstraints { make in
             make.leading.equalTo(dayNameLabel.snp.trailing).offset(5)
-            make.top.equalTo(dayNameLabel)
-            make.width.height.equalTo(bgView).multipliedBy(0.25)
+            make.verticalEdges.equalTo(dayNameLabel).inset(5)
+
         }
         
         minTempLabel.snp.makeConstraints { make in
-            make.leading.verticalEdges.equalTo(middleIconImage)
+//            make.leading.verticalEdges.equalTo(middleIconImage)
+            make.leading.equalTo(middleIconImage.snp.trailing).offset(25)
+            make.verticalEdges.equalTo(bgView)
             make.width.equalTo(bgView).multipliedBy(0.25)
         }
         
-        minTempLabel.snp.makeConstraints { make in
-            make.leading.verticalEdges.equalTo(minTempLabel)
+        maxTempLabel.snp.makeConstraints { make in
+            make.leading.equalTo(minTempLabel.snp.trailing).offset(15)
+            make.verticalEdges.equalTo(bgView)
             make.width.equalTo(bgView).multipliedBy(0.25)
         }
         

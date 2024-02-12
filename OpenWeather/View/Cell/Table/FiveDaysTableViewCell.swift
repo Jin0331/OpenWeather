@@ -47,7 +47,8 @@ class FiveDaysTableViewCell: BaseTableViewCell {
         
         tempTableView.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(5)
-            make.bottom.horizontalEdges.equalToSuperview()
+            make.bottom.equalToSuperview()
+            make.horizontalEdges.equalToSuperview().inset(10)
         }
     }
 }

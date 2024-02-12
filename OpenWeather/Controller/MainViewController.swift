@@ -39,7 +39,8 @@ final class ViewController: UIViewController {
                 self.forecast = item
                 group.leave()
                 
-                dump(self.forecast?.threeHourDuringThreeDays)
+//                dump(self.forecast?.threeHourDuringThreeDays)
+                dump(self.forecast?.fiveDaysFromMinMiax)
             }
         }
         

@@ -38,7 +38,8 @@ final class ViewController: UIViewController {
             OpenWeatherAPIManager.shared.fetch(api: .forecast(id: String(self.tempID))) { (item:ForecastModel) in
                 self.forecast = item
                 group.leave()
-                dump(self.forecast?.threeHourDuringThreeDays[0].dtConvert.toString(dateFormat: "YY-MM-dd"))
+                
+                dump(self.forecast?.threeHourDuringThreeDays)
             }
         }
         

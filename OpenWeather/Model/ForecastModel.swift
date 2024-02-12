@@ -5,7 +5,8 @@
 //  Created by JinwooLee on 2/11/24.
 //
 
-import Foundation
+import UIKit
+
 
 // MARK: - Welcome
 struct ForecastModel: Decodable {
@@ -21,12 +22,12 @@ struct ForecastModel: Decodable {
         }
     }
     
-    //TODO: - 5일동안 평균 최고 최저 온도. 요소별로 접근해서 일자별 평균 온도. 이때, Dictionary를 이용해서 날짜를 박는게 좋을 듯
-    var fiveDaysFromMinMiax : [ForecastList] {
-        get {
-            
-        }
-    }
+    //    //TODO: - 5일동안 평균 최고 최저 온도. 요소별로 접근해서 일자별 평균 온도. 이때, Dictionary를 이용해서 날짜를 박는게 좋을 듯
+    //    var fiveDaysFromMinMiax : [ForecastList] {
+    //        get {
+    //
+    //        }
+    //    }
     
 }
 
@@ -50,9 +51,18 @@ struct ForecastList: Decodable {
     let pop : Double
     let sys: Sys
     let dtTxt: String //TODO: - dtTXT를 잘 활용해야됨.ㅠ
-
+    
     enum CodingKeys: String, CodingKey {
         case dt, main, weather, clouds, wind, visibility, pop, sys
         case dtTxt = "dt_txt"
+    }
+    
+    var dtConvert : Date {
+        get {
+            let timeInterval = TimeInterval(String(dt))!
+            let utcTime = Date(timeIntervalSince1970: timeInterval)
+            return utcTime
+            
+        }
     }
 }

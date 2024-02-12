@@ -56,7 +56,7 @@ struct Wind: Decodable {
 }
 
 // MARK: - Main
-struct Main: Decodable {
+struct MainData : Decodable {
     let temp, feelsLike, tempMin, tempMax: Double
     let pressure, seaLevel, grndLevel, humidity: Int
     let tempKf: Double
@@ -83,5 +83,23 @@ struct Main: Decodable {
         self.tempKf = (try? container.decode(Double.self, forKey: .tempKf)) ?? -999
         self.pressure = try container.decode(Int.self, forKey: .pressure)
         self.humidity = try container.decode(Int.self, forKey: .humidity)
+    }
+    
+    var tempConvert : String {
+        get {
+            return String(format: "%.0f", temp-273.15)
+        }
+    }
+    
+    var tempMinConvert : String {
+        get {
+            return String(format: "%.1f", tempMin-273.15)
+        }
+    }
+    
+    var tempMaxConvert : String {
+        get {
+            return String(format: "%.1f", tempMax-273.15)
+        }
     }
 }

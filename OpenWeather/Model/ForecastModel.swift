@@ -16,14 +16,19 @@ struct ForecastModel: Decodable {
     let city: City
     
     //TODO: - 3일동안 3시간 간격 -> APIRequest를 호출한 시점을 기준으로, index slicing? 어차피 40개로 한정되어있음. 24시간 8개. 3일이면 24 -> 즉 [:25] 까지하면 해당 호출 시점기준으로 3일간 슬라이싱 됨아래 -> 아래 방식으로 명확하게 변경함
-    var threeHourDuringThreeDays : [ForecastList] {
+    var threeHourDuringThreeDays : [[Any]] {
         get {
             // 현재 일(dd)
             let currentTime = (Int(Date().toString(dateFormat: "dd"))!)
             let threeDays = (currentTime...currentTime+2).map{return String($0)}
-            var resultList = list.filter{ threeDays.contains($0.dtConvert.toString(dateFormat: "dd"))}
+            var threeDaysList = list.filter{ threeDays.contains($0.dtConvertDay)}
             
-            resultList.sort { return $0.dt < $1.dt } // dt 기준으로 제일 빠른 시간이 앞으로 오도록,, 물론 위에 단계에서 순서는 고정되는 것 같지만, 만약의 경우를 대비해서
+            threeDaysList.sort { return $0.dt < $1.dt } // dt 기준으로 제일 빠른 시간이 앞으로 오도록,, 물론 위에 단계에서 순서는 고정되는 것 같지만, 만약의 경우를 대비해서
+            
+            // 필요한 값들만 추출
+            let resultList = threeDaysList.map {
+                return [$0.dt, $0.dtConvertHour, $0.main.tempConvert, $0.weather[0].icon]
+            }
             
             return resultList
         }
@@ -35,8 +40,8 @@ struct ForecastModel: Decodable {
             
             let currentTime = (Int(Date().toString(dateFormat: "dd"))!)
             let threeDays = (currentTime+1...currentTime+4).map{return String($0)} // 오늘 뺴고 4일
-            let convertList = list.filter{ threeDays.contains($0.dtConvert.toString(dateFormat: "dd"))}
-            let dictByDt = Dictionary(grouping: convertList) { return $0.dtConvert.toString(dateFormat: "dd") }
+            let convertList = list.filter{ threeDays.contains($0.dtConvertDay)}
+            let dictByDt = Dictionary(grouping: convertList) { return $0.dtConvertDay }
             
             let arrayByMinMax = dictByDt.map { k, v in
                 
@@ -44,10 +49,10 @@ struct ForecastModel: Decodable {
                 let maxTempMax = v.max { return $0.main.temp < $1.main.temp }?.main.temp ?? 0
                 
                 // 오후 12시의 icon (오늘 제외)
-                let icon = v.filter{$0.dtConvert.toString(dateFormat: "hh") == "12"}.map {
+                let icon = v.filter{$0.dtConvertHour == "12"}.map {
                     return $0.weather[0].icon}
-                let yoil = v.map{ $0.dtConvert.toString(dateFormat: "EEEEEE")}
-                return [k, yoil.randomElement()!, String(minTempMin), String(maxTempMax), icon.randomElement()!]
+                let yoil = v.map{ $0.dtConvertDayName}
+                return [k, yoil.randomElement()!, String(format: "%.1f", minTempMin-273.15), String(format: "%.1f", maxTempMax-273.15), icon.randomElement()!]
             }
             
             return arrayByMinMax.sorted { return $0[0] < $1[0] }
@@ -69,17 +74,15 @@ struct City: Decodable {
 // MARK: - List
 struct ForecastList: Decodable {
     let dt: Int
-    let main: Main
+    let main: MainData
     let weather: [Weather]
     let clouds: Clouds
     let wind: Wind
     let visibility : Int
-    let pop : Double
-    let sys: Sys
     let dtTxt: String //TODO: - dtTXT를 잘 활용해야됨.ㅠ
     
     enum CodingKeys: String, CodingKey {
-        case dt, main, weather, clouds, wind, visibility, pop, sys
+        case dt, main, weather, clouds, wind, visibility
         case dtTxt = "dt_txt"
     }
     
@@ -91,4 +94,23 @@ struct ForecastList: Decodable {
             
         }
     }
+    
+    var dtConvertDay : String {
+        get {
+            return dtConvert.toString(dateFormat: "dd")
+        }
+    }
+    
+    var dtConvertDayName : String {
+        get {
+            return dtConvert.toString(dateFormat: "EEE")
+        }
+    }
+    
+    var dtConvertHour : String {
+        get {
+            return dtConvert.toString(dateFormat: "hh")
+        }
+    }
+    
 }

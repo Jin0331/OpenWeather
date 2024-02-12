@@ -10,20 +10,22 @@ import SnapKit
 import Then
 
 final class MainView: BaseView {
-
-    let cityNameLabel = CommonLabel().then {
-        $0.font = .systemFont(ofSize: 20, weight: .heavy)
-        $0.text = "hi"
+    
+    let mainTableView = UITableView().then {
+        $0.backgroundColor = .clear
+        $0.estimatedRowHeight = 250
+        $0.register(TopTableViewCell.self, forCellReuseIdentifier: TopTableViewCell.identifier)
+        $0.register(ThreeHourTableViewCell.self, forCellReuseIdentifier: ThreeHourTableViewCell.identifier)
+        $0.register(FiveDaysTableViewCell.self, forCellReuseIdentifier: FiveDaysTableViewCell.identifier)
     }
     
-
     override func configureHierarchy() {
-        addSubview(cityNameLabel)
+        self.addSubview(mainTableView)
     }
     
     override func configureLayout() {
-        cityNameLabel.snp.makeConstraints { make in
-            make.top.horizontalEdges.equalTo(self.safeAreaLayoutGuide).inset(10)
+        mainTableView.snp.makeConstraints { make in
+            make.edges.equalTo(safeAreaLayoutGuide)
         }
     }
     

@@ -14,4 +14,11 @@ extension UIView {
     var identifier_: String {
         return String(describing: type(of: self))
     }
+    
+    func viewOption() {
+        clipsToBounds = true
+        layer.borderColor = UIColor.systemGray6.cgColor
+        layer.borderWidth = 0.5
+        layer.cornerRadius = 10
+    }
 }

@@ -35,7 +35,7 @@ struct ForecastModel: Decodable {
     }
     
     //TODO: - 5일동안 평균 최고 최저 온도. 요소별로 접근해서 일자별 평균 온도. 이때, Dictionary를 이용해서 날짜를 박는게 좋을 듯
-    var fiveDaysFromMinMiax : [[String]] {
+    var fiveDaysFromMinMax : [[String]] {
         get {
             
             let currentTime = (Int(Date().toString(dateFormat: "dd"))!)

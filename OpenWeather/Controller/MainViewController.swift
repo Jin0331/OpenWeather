@@ -48,8 +48,7 @@ final class MainViewController: UIViewController {
             print("조회 완료")
             
             self.mainView.mainTableView.reloadData()
-            
-            print(self.forecast?.fiveDaysFromMinMiax)
+            print(self.forecast?.fiveDaysFromMinMax)
         }
     }
 }
@@ -77,7 +76,7 @@ extension MainViewController : UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        
+        //MARK: - Outer TableView
         if tableView == mainView.mainTableView {
             if indexPath.row  == 0 { //MARK: - TopTableView
                 let cell = tableView.dequeueReusableCell(withIdentifier: TopTableViewCell.identifier, for: indexPath) as! TopTableViewCell
@@ -99,15 +98,22 @@ extension MainViewController : UITableViewDataSource, UITableViewDelegate {
                 
                 cell.tempTableView.delegate = self
                 cell.tempTableView.dataSource = self
+                cell.tempTableView.reloadData()
                 
                 return cell
             } else {
                 
                 return UITableViewCell()
             }
+        //MARK: - inner TableView
         } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: FivewDaysSubTableViewCell.identifier, for: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier: FivewDaysSubTableViewCell.identifier, for: indexPath) as! FivewDaysSubTableViewCell
             
+            if indexPath.row == 0 {
+                cell.receiveData(data: current)
+            } else {
+                cell.receiveData(data: forecast?.fiveDaysFromMinMax[indexPath.row - 1])
+            }
             return cell
         }
         

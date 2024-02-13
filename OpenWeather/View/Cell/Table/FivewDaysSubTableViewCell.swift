@@ -10,30 +10,25 @@ import SnapKit
 import Then
 
 class FivewDaysSubTableViewCell: BaseTableViewCell {
-
+    
     let bgView = UIView().then {
-        $0.backgroundColor = .blue
+        $0.backgroundColor = .clear
     }
     
     let dayNameLabel = CommonLabel().then {
-        $0.text = "Today"
         $0.font = .systemFont(ofSize: 25)
     }
     
     let middleIconImage = UIImageView().then {
-        $0.image = UIImage(systemName: "star.fill")
-        $0.contentMode = .scaleAspectFill
-        $0.tintColor = .white
+        $0.contentMode = .scaleToFill
     }
     
     let minTempLabel = CommonLabel().then {
-        $0.text = "최저 2도"
         $0.font = .systemFont(ofSize: 22)
         $0.textColor = .systemGray
     }
     
     let maxTempLabel = CommonLabel().then {
-        $0.text = "최고 9도"
         $0.font = .systemFont(ofSize: 22)
     }
     
@@ -42,7 +37,7 @@ class FivewDaysSubTableViewCell: BaseTableViewCell {
         
         [dayNameLabel, middleIconImage, minTempLabel, maxTempLabel].forEach{ return bgView.addSubview($0)}
     }
-
+    
     override func configureLayout() {
         bgView.snp.makeConstraints { make in
             make.height.equalTo(50)
@@ -52,18 +47,18 @@ class FivewDaysSubTableViewCell: BaseTableViewCell {
         dayNameLabel.snp.makeConstraints { make in
             make.leading.equalTo(bgView).offset(20)
             make.verticalEdges.equalTo(bgView)
-            make.width.equalTo(bgView).multipliedBy(0.25)
+            make.width.equalTo(bgView).multipliedBy(0.2)
         }
         
         middleIconImage.snp.makeConstraints { make in
-            make.leading.equalTo(dayNameLabel.snp.trailing).offset(5)
-            make.verticalEdges.equalTo(dayNameLabel).inset(5)
-
+            make.leading.equalTo(dayNameLabel.snp.trailing)
+            make.centerY.equalToSuperview()
+            make.height.width.equalTo(50)
+            
         }
         
         minTempLabel.snp.makeConstraints { make in
-//            make.leading.verticalEdges.equalTo(middleIconImage)
-            make.leading.equalTo(middleIconImage.snp.trailing).offset(25)
+            make.leading.equalTo(middleIconImage.snp.trailing).offset(20)
             make.verticalEdges.equalTo(bgView)
             make.width.equalTo(bgView).multipliedBy(0.25)
         }
@@ -76,4 +71,26 @@ class FivewDaysSubTableViewCell: BaseTableViewCell {
         
     }
     
+    func receiveData(data : CurrentModel?) {
+        
+        guard let data = data else { return }
+        
+        dayNameLabel.text = "Today"
+        let url = URL(string: "\(OpenWeatherAPI.iconUrl)\(data.weather[0].icon)@2x.png")!
+        middleIconImage.kf.setImage(with: url, options: [.transition(.fade(1))])
+        minTempLabel.text = "최저 \(data.main.tempMinConvert)°"
+        maxTempLabel.text = "최고 \(data.main.tempMaxConvert)°"
+    }
+    
+    func receiveData(data : [String]?) {
+        
+        guard let data = data else { return }
+        
+        dayNameLabel.text = "\(data[1])"
+        let url = URL(string: "\(OpenWeatherAPI.iconUrl)\(data[4])@2x.png")!
+        middleIconImage.kf.setImage(with: url, options: [.transition(.fade(1))])
+        minTempLabel.text = "최저 \(data[2])°"
+        maxTempLabel.text = "최고 \(data[3])°"
+
+    }
 }

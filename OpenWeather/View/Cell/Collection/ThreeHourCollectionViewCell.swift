@@ -53,18 +53,14 @@ class ThreeHourCollectionViewCell: BaseCollectionViewCell {
         }
     }
     
-    func receiveData(data : [Any]?) {
+   func receiveData(data : [Any]?) {
         
         guard let data = data else { return }
-        
-        print("\(data[3])")
         
         topLabel.text = "\(data[1])시"
         let url = URL(string: "\(OpenWeatherAPI.iconUrl)\(data[3])@2x.png")!
         middleIconImage.kf.setImage(with: url, options: [.transition(.fade(1))])
         bottomLabel.text = "\(data[2])°"
-        
-        
     }
     
 }

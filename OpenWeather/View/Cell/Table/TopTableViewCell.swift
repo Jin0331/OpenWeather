@@ -12,23 +12,23 @@ import Then
 class TopTableViewCell: BaseTableViewCell{
 
     let cityLabel = CommonLabel().then {
-        $0.font = .systemFont(ofSize: 40, weight: .heavy)
-        $0.text = "Jeju City"
+        $0.font = .systemFont(ofSize: 45, weight: .heavy)
+        $0.text = ""
     }
     
     let tempLabel = CommonLabel().then {
         $0.font = .systemFont(ofSize: 100)
-        $0.text = "5.9"
+        $0.text = ""
     }
     
     let descLabel = CommonLabel().then {
         $0.font = .systemFont(ofSize: 25)
-        $0.text = "Broken Clouds"
+        $0.text = ""
     }
     
     let maxMinLabel = CommonLabel().then {
         $0.font = .systemFont(ofSize: 25)
-        $0.text = "최고 : 7.0 | 최저 -4.2"
+        $0.text = ""
     }
 
     override func configureHierarchy() {
@@ -60,9 +60,14 @@ class TopTableViewCell: BaseTableViewCell{
         }
     }
     
-    override func configureView() {
-        super.configureView()
-        backgroundColor = .red
+    func receiveData(data : CurrentModel?) {
+        
+        guard let data = data else { return }
+        
+        cityLabel.text = data.name
+        tempLabel.text = data.main.tempConvert + "°"
+        descLabel.text = data.weather[0].mainDescription
+        maxMinLabel.text = "체감온도 : \(data.main.feelsLikeConvert)°"
     }
     
 }

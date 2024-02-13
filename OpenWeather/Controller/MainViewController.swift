@@ -47,8 +47,9 @@ final class MainViewController: UIViewController {
         group.notify(queue: .main) {
             print("조회 완료")
             
-            //            dump(self.forecast?.threeHourDuringThreeDays)
-            //            dump(self.forecast?.fiveDaysFromMinMiax)
+            self.mainView.mainTableView.reloadData()
+            
+            print(self.forecast?.fiveDaysFromMinMiax)
         }
     }
 }
@@ -76,19 +77,22 @@ extension MainViewController : UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+        
         if tableView == mainView.mainTableView {
-            if indexPath.row  == 0 {
+            if indexPath.row  == 0 { //MARK: - TopTableView
                 let cell = tableView.dequeueReusableCell(withIdentifier: TopTableViewCell.identifier, for: indexPath) as! TopTableViewCell
                 
+                cell.receiveData(data: current)
+                
                 return cell
-            } else if indexPath.row == 1 {
+            } else if indexPath.row == 1 { //MARK: - Three Hour
                 let cell = tableView.dequeueReusableCell(withIdentifier: ThreeHourTableViewCell.identifier, for: indexPath) as! ThreeHourTableViewCell
                 
                 cell.tempCollectionView.delegate = self
                 cell.tempCollectionView.dataSource = self
                 
                 return cell
-            } else if indexPath.row == 2 {
+            } else if indexPath.row == 2 { //MARK: - Five Days
                 let cell = tableView.dequeueReusableCell(withIdentifier: FiveDaysTableViewCell.identifier, for: indexPath) as! FiveDaysTableViewCell
                 
                 cell.tempTableView.delegate = self

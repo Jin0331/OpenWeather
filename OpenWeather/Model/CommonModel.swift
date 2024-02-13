@@ -46,7 +46,12 @@ struct Sys: Decodable {
 // MARK: - Weather
 struct Weather: Decodable {
     let id: Int
-    let main, description, icon: String
+    let mainDescription, description, icon: String
+    
+    enum CodingKeys : String, CodingKey {
+        case mainDescription = "main"
+        case id, description, icon
+    }
 }
 
 // MARK: - Wind
@@ -100,6 +105,12 @@ struct MainData : Decodable {
     var tempMaxConvert : String {
         get {
             return String(format: "%.1f", tempMax-273.15)
+        }
+    }
+    
+    var feelsLikeConvert : String {
+        get {
+            return String(format: "%.1f", feelsLike-273.15)
         }
     }
 }

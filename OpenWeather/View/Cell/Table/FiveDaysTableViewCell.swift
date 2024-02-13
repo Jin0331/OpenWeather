@@ -27,6 +27,7 @@ class FiveDaysTableViewCell: BaseTableViewCell {
     
     let tempTableView = UITableView().then {
         $0.register(FivewDaysSubTableViewCell.self, forCellReuseIdentifier: FivewDaysSubTableViewCell.identifier)
+        $0.backgroundColor = .clear
     }
     
     override func configureHierarchy() {

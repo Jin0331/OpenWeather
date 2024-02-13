@@ -20,7 +20,7 @@ class ThreeHourTableViewCell: BaseTableViewCell {
     }
     
     let titleLabel = CommonLabel().then {
-        $0.text = "🗓️ 3시간 간격의40 일기예보"
+        $0.text = "🗓️ 3시간 간격의 일기예보"
         $0.font = .systemFont(ofSize: 18)
         $0.textColor = .systemGray
     }
@@ -52,11 +52,6 @@ class ThreeHourTableViewCell: BaseTableViewCell {
             make.bottom.equalToSuperview()
             make.horizontalEdges.equalToSuperview().inset(10)
         }
-    }
-    
-    override func configureView() {
-        super.configureView()
-        backgroundColor = .orange
     }
     
     private func configureCellLayout() -> UICollectionViewFlowLayout {

@@ -8,24 +8,22 @@
 import UIKit
 import SnapKit
 import Then
+import Kingfisher
 
 class ThreeHourCollectionViewCell: BaseCollectionViewCell {
     
     let topLabel = CommonLabel().then {
-        $0.text = "12시"
         $0.font = .systemFont(ofSize: 20, weight: .heavy)
         $0.textAlignment = .center
         $0.textColor = .systemGray
     }
     
     let middleIconImage = UIImageView().then {
-        $0.image = UIImage(systemName: "star.fill")
-        $0.contentMode = .scaleAspectFill
+        $0.contentMode = .scaleToFill
         $0.tintColor = .white
     }
     
     let bottomLabel = CommonLabel().then {
-        $0.text = "7도"
         $0.font = .systemFont(ofSize: 22, weight: .heavy)
         $0.textAlignment = .center
         $0.textColor = .systemGray
@@ -42,19 +40,31 @@ class ThreeHourCollectionViewCell: BaseCollectionViewCell {
         }
         
         middleIconImage.snp.makeConstraints { make in
-            make.top.equalTo(topLabel.snp.bottom).offset(25)
-            make.horizontalEdges.equalTo(topLabel).inset(25)
+            make.top.equalTo(topLabel.snp.bottom).offset(15)
+//            make.horizontalEdges.equalTo(topLabel).inset(25)
+            make.centerX.equalTo(topLabel)
+            make.height.width.equalTo(50)
         }
         
         bottomLabel.snp.makeConstraints { make in
-            make.top.equalTo(middleIconImage.snp.bottom).offset(25)
+            make.top.equalTo(middleIconImage.snp.bottom).offset(20)
             make.horizontalEdges.equalTo(topLabel)
             make.bottom.equalTo(contentView.snp.bottom).inset(5)
         }
     }
     
-    override func configureView() {
-        backgroundColor = .purple
+    func receiveData(data : [Any]?) {
+        
+        guard let data = data else { return }
+        
+        print("\(data[3])")
+        
+        topLabel.text = "\(data[1])시"
+        let url = URL(string: "\(OpenWeatherAPI.iconUrl)\(data[3])@2x.png")!
+        middleIconImage.kf.setImage(with: url, options: [.transition(.fade(1))])
+        bottomLabel.text = "\(data[2])°"
+        
+        
     }
     
 }

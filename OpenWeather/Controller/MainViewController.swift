@@ -90,6 +90,8 @@ extension MainViewController : UITableViewDataSource, UITableViewDelegate {
                 
                 cell.tempCollectionView.delegate = self
                 cell.tempCollectionView.dataSource = self
+                cell.tempCollectionView.tag = 0
+                cell.tempCollectionView.reloadData()
                 
                 return cell
             } else if indexPath.row == 2 { //MARK: - Five Days
@@ -117,14 +119,28 @@ extension MainViewController : UICollectionViewDelegate, UICollectionViewDataSou
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 20
+        
+        if collectionView.tag == 0 {
+            guard let forecast = forecast else { return 0 }
+            
+            return forecast.threeHourDuringThreeDays.count
+        } else {
+            return 0
+        }
+    
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ThreeHourCollectionViewCell.identifier, for: indexPath)
-        
-        return cell
+        if collectionView.tag == 0 {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ThreeHourCollectionViewCell.identifier, for: indexPath) as! ThreeHourCollectionViewCell
+            
+            cell.receiveData(data: forecast?.threeHourDuringThreeDays[indexPath.item])
+            
+            return cell
+        } else {
+            return UICollectionViewCell()
+        }
         
     }
     

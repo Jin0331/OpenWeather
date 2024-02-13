@@ -11,6 +11,7 @@ import Alamofire
 enum OpenWeatherAPI {
     
     static let baseUrl = "https://api.openweathermap.org/data/2.5/"
+    static let iconUrl = "https://openweathermap.org/img/wn/"
     static let method : HTTPMethod = .get
     
     //MARK: - Error 관련 Enum

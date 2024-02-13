@@ -32,11 +32,6 @@ class BottomTableViewCell: BaseTableViewCell {
         $0.text = "1.35 MS"
     }
     
-    let topLeftLabel3 = CommonLabel().then {
-        $0.font = .systemFont(ofSize: 17)
-        $0.text = "1.35 MS"
-    }
-    
     let topRightView = UIView().then {
         $0.viewOption()
     }
@@ -99,7 +94,6 @@ class BottomTableViewCell: BaseTableViewCell {
         topStackView.addArrangedSubview(topLeftView)
         topLeftView.addSubview(topLeftLabel1)
         topLeftView.addSubview(topLeftLabel2)
-        topLeftView.addSubview(topLeftLabel3)
     
         topStackView.addArrangedSubview(topRightView)
         topRightView.addSubview(topRightLabel1)
@@ -132,11 +126,6 @@ class BottomTableViewCell: BaseTableViewCell {
         topLeftLabel2.snp.makeConstraints { make in
             make.top.equalTo(topLeftLabel1.snp.bottom).offset(10)
             make.horizontalEdges.equalTo(topLeftLabel1)
-        }
-        
-        topLeftLabel3.snp.makeConstraints { make in
-            make.bottom.equalToSuperview().inset(20)
-            make.horizontalEdges.equalTo(topLeftLabel2)
         }
         
         topRightLabel1.snp.makeConstraints { make in
@@ -177,5 +166,14 @@ class BottomTableViewCell: BaseTableViewCell {
             make.horizontalEdges.equalToSuperview()
             make.height.equalTo(contentView.snp.height).multipliedBy(0.5)
         }
+    }
+    
+    func receiveData(data : CurrentModel?) {
+        guard let data = data else { return }
+        
+        topLeftLabel2.text = "\(data.wind.speed)m/s"
+        topRightLabel2.text = "\(data.clouds.all)%"
+        bottomLeftLabel2.text = "\(data.main.pressureConvert)"
+        bottomRightLabel2.text = "\(data.main.humidity)%"
     }
 }

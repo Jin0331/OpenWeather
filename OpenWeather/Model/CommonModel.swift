@@ -113,4 +113,14 @@ struct MainData : Decodable {
             return String(format: "%.1f", feelsLike-273.15)
         }
     }
+    
+    var pressureConvert : String {
+        get {
+            
+            let numberFormatter: NumberFormatter = NumberFormatter()
+            numberFormatter.numberStyle = .decimal
+
+            return numberFormatter.string(for: Int(pressure))!
+        }
+    }
 }

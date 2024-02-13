@@ -116,6 +116,8 @@ extension MainViewController : UITableViewDataSource, UITableViewDelegate {
             } else if indexPath.row == 4 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: BottomTableViewCell.identifier, for: indexPath) as! BottomTableViewCell
                 
+                cell.receiveData(data: current)
+                
                 return cell
                 
                 

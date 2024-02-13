@@ -12,7 +12,7 @@ import Then
 final class MainView: BaseView {
     
     let mainTableView = UITableView().then {
-        $0.backgroundColor = .clear
+        $0.backgroundColor = .black
         $0.estimatedRowHeight = 250
         $0.register(TopTableViewCell.self, forCellReuseIdentifier: TopTableViewCell.identifier)
         $0.register(ThreeHourTableViewCell.self, forCellReuseIdentifier: ThreeHourTableViewCell.identifier)
@@ -29,6 +29,11 @@ final class MainView: BaseView {
         mainTableView.snp.makeConstraints { make in
             make.edges.equalTo(safeAreaLayoutGuide)
         }
+    }
+    
+    override func configureView() {
+        super.configureView()
+        backgroundColor = .black
     }
     
 }

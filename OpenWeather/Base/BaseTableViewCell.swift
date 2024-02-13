@@ -30,7 +30,7 @@ class BaseTableViewCell : UITableViewCell {
     }
     
     func configureView() {
-        backgroundColor = .clear
+        backgroundColor = .black
         selectionStyle = .none
     }
     

@@ -8,15 +8,16 @@
 import UIKit
 
 class BaseViewController: UIViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configureHierarchy()
         configureLayout()
-        configureView() 
+        configureView()
+        configureNavigation ()
     }
-
+    
     func configureHierarchy() {
         
     }
@@ -39,22 +40,42 @@ class BaseViewController: UIViewController {
             NSAttributedString.Key.font : UIFont.systemFont(ofSize: 25, weight: .heavy)
         ]
         
+        navigationItem.title = ""
+        
         // back button
         let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil) // title 부분 수정
         backBarButtonItem.tintColor = .white
         self.navigationItem.backBarButtonItem = backBarButtonItem
         
-        // profile button
-        let profileButton = UIBarButtonItem(image: UIImage(systemName: "figure.child.circle"), style: .plain, target: self, action: #selector(profileButtonClicked))
-        profileButton.tintColor = .white
-        
-        //  item 설정
-        navigationItem.rightBarButtonItem = profileButton
-        navigationItem.title = ""
         
     }
     
-    // profile button 누를때 동작
-    @objc func profileButtonClicked(_ sender : UIBarButtonItem) {
-    }
+}
+
+
+extension BaseViewController {
+    //MARK: - 화면전환관련
+        enum TransitionStyle {
+            case present
+            case presentNavigation // 네비게이션 임베드한 채로 present
+            case presentFullNavigation // 네비게이션 임베드 된 full presesnt
+            case push
+        }
+
+        func ViewTransition<T:BaseViewController>(style : TransitionStyle, viewControllerType : T.Type) {
+            let vc = T()
+            switch style {
+            case .present:
+                present(vc, animated: true)
+            case .presentNavigation:
+                let nav = UINavigationController(rootViewController: vc)
+                present(nav, animated: true)
+            case .presentFullNavigation:
+                let nav = UINavigationController(rootViewController: vc)
+                nav.modalPresentationStyle = .fullScreen
+                present(nav, animated: true)
+            case .push:
+                navigationController?.pushViewController(vc, animated: true)
+            }
+        }
 }

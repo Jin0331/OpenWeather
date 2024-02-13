@@ -8,14 +8,39 @@
 import UIKit
 import MapKit
 
-final class MainViewController: UIViewController {
+final class MainViewController: BaseViewController {
     
     let mainView = MainView()
     
     var current : CurrentModel?
     var forecast : ForecastModel?
     
-    let tempID = 1835847 // seoul,, 임시
+    var tempID = 1835847 {
+        didSet {
+            let group = DispatchGroup()
+            
+            group.enter()
+            DispatchQueue.global().async(group:group) {
+                OpenWeatherAPIManager.shared.fetch(api: .current(id: String(self.tempID))) { (item:CurrentModel) in
+                    self.current = item
+                    group.leave()
+                }
+            }
+            
+            group.enter()
+            DispatchQueue.global().async(group:group) {
+                OpenWeatherAPIManager.shared.fetch(api: .forecast(id: String(self.tempID))) { (item:ForecastModel) in
+                    self.forecast = item
+                    group.leave()
+                }
+            }
+            
+            group.notify(queue: .main) {
+                print("ID 변경 다시 조회 완료")
+                self.mainView.mainTableView.reloadData()
+            }
+        }
+    }// seoul,, 임시 {
     
     override func loadView() {
         self.view = mainView
@@ -50,6 +75,30 @@ final class MainViewController: UIViewController {
             self.mainView.mainTableView.reloadData()
         }
     }
+    
+    override func configureNavigation() {
+        super.configureNavigation()
+        
+        // profile button
+        let rightButton = UIBarButtonItem(image: UIImage(systemName: "list.star"), style: .plain, target: self, action: #selector(rightButtonClicked))
+        rightButton.tintColor = .white
+
+        //  item 설정
+        navigationItem.rightBarButtonItem = rightButton
+
+    }
+
+    @objc func rightButtonClicked(_ sender : UIBarButtonItem) {
+        
+//        ViewTransition(style: .push, viewControllerType: SearchViewController.self)
+        let vc = SearchViewController()
+        vc.idSpace = { value in
+            self.tempID = value
+        }
+        
+        navigationController?.pushViewController(vc, animated: true)
+    }
+
 }
 
 extension MainViewController : UITableViewDataSource, UITableViewDelegate {
@@ -108,7 +157,6 @@ extension MainViewController : UITableViewDataSource, UITableViewDelegate {
             } else if indexPath.row == 3 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: MapTableViewCell.identifier, for: indexPath) as! MapTableViewCell
                 
-                cell.mapView.delegate = self
                 cell.receiveData(data: current)
                 
                 return cell
@@ -166,8 +214,4 @@ extension MainViewController : UICollectionViewDelegate, UICollectionViewDataSou
         }
         
     }
-}
-
-extension MainViewController : MKMapViewDelegate {
-    
 }

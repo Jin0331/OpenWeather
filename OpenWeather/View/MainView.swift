@@ -17,6 +17,7 @@ final class MainView: BaseView {
         $0.register(TopTableViewCell.self, forCellReuseIdentifier: TopTableViewCell.identifier)
         $0.register(ThreeHourTableViewCell.self, forCellReuseIdentifier: ThreeHourTableViewCell.identifier)
         $0.register(FiveDaysTableViewCell.self, forCellReuseIdentifier: FiveDaysTableViewCell.identifier)
+        $0.register(MapTableViewCell.self, forCellReuseIdentifier: MapTableViewCell.identifier)
     }
     
     override func configureHierarchy() {

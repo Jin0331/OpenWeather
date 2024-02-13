@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DB2198B72B7B8F8C009B2AAC /* MapTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2198B62B7B8F8C009B2AAC /* MapTableViewCell.swift */; };
 		DBC59A442B7A471C006BEB76 /* TopTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC59A432B7A471C006BEB76 /* TopTableViewCell.swift */; };
 		DBC59A462B7A4729006BEB76 /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC59A452B7A4729006BEB76 /* BaseTableViewCell.swift */; };
 		DBC59A482B7A49F0006BEB76 /* UIView + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC59A472B7A49F0006BEB76 /* UIView + Extension.swift */; };
@@ -38,6 +39,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DB2198B62B7B8F8C009B2AAC /* MapTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTableViewCell.swift; sourceTree = "<group>"; };
 		DBC59A432B7A471C006BEB76 /* TopTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopTableViewCell.swift; sourceTree = "<group>"; };
 		DBC59A452B7A4729006BEB76 /* BaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
 		DBC59A472B7A49F0006BEB76 /* UIView + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + Extension.swift"; sourceTree = "<group>"; };
@@ -97,6 +99,7 @@
 				DBC59A492B7A4FF6006BEB76 /* ThreeHourTableViewCell.swift */,
 				DBC59A502B7A6CD1006BEB76 /* FiveDaysTableViewCell.swift */,
 				DBC59A522B7A6DA0006BEB76 /* FivewDaysSubTableViewCell.swift */,
+				DB2198B62B7B8F8C009B2AAC /* MapTableViewCell.swift */,
 			);
 			path = Table;
 			sourceTree = "<group>";
@@ -296,6 +299,7 @@
 				DBE3CBBE2B7869A2005E540B /* CurrentModel.swift in Sources */,
 				DBC59A532B7A6DA0006BEB76 /* FivewDaysSubTableViewCell.swift in Sources */,
 				DBCC22AC2B7862D0007F61B2 /* MainViewController.swift in Sources */,
+				DB2198B72B7B8F8C009B2AAC /* MapTableViewCell.swift in Sources */,
 				DBE3CBC22B786F91005E540B /* CommonModel.swift in Sources */,
 				DBE3CBC62B7871B1005E540B /* OpenWeatherAPI.swift in Sources */,
 				DBC59A4F2B7A52F2006BEB76 /* BaseCollectionViewCell.swift in Sources */,

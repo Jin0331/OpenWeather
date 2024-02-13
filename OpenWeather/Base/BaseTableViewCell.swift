@@ -33,4 +33,10 @@ class BaseTableViewCell : UITableViewCell {
         backgroundColor = .clear
         selectionStyle = .none
     }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+
+        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0))
+    }
 }
